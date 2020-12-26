@@ -1,12 +1,12 @@
 function detectText(element, word) {
   if (element.hasChildNodes()) {
     element.childNodes.forEach((elem) => detectText(elem, word));
-  } else if (element.nodeType === Text.TEXT_NODE) {
+  } else if (element.nodeType === Text.TEXT_NODE && !element.parentElement.classList.contains('detect') ) {
     const newElement = document.createElement("span");
-    var reg = new RegExp(word, "gi");
+    var reg = new RegExp('('+word+')', "gi");
     newElement.innerHTML = element.textContent.replace(
       reg,
-      '<span class="detect">' + element.textContent + "</span>"
+      '<span class="detect">$1</span>'
     );
     element.replaceWith(newElement);
   }
